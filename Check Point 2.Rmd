@@ -1,0 +1,234 @@
+---
+title: "Check Point 2"
+author: "Wen Liu"
+date: "`r Sys.Date()`"
+editor_options:
+  chunk_output_type: console
+output:
+  pdf_document:
+    toc: true
+    toc_depth: 1
+    number_sections: true
+urlcolor: blue
+---
+
+```{r setup, include = FALSE}
+
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+
+```
+
+# Instructions
+
+This homework must be submitted on Canvas as a **R markdown-generated PDF** file (from the .Rmd template available on the Assignment page), **together with the source code** (the .rmd file). Submissions in any other format will be considered late until the requested format has been submitted; failure to submit the requested format within 10 days will lead to a 0 to the assignment.
+
+Questions should be answered with **literate, meaningful answers** when relevant. Plots should be **publication-ready** (i.e., explicit and understandable).  
+
+# Introduction
+
+*1. Background: Vision health is a critical yet often overlooked component of population health, influencing quality of life, independence, and health equity across the lifespan. Visual impairment is associated with increased risk of injury, reduced workforce participation, and poorer mental and physical health outcomes. Disparities in vision outcomes persist across age, socioeconomic status, and demographic groups, making vision health an important public health concern. Understanding how visual acuity varies across population characteristics can help inform prevention, screening, and access-to-care strategies.
+
+*2. Project question: Are prevalence estimates for eye health conditions associated with age and socioeconomic characteristics among U.S. adults?
+
+*3. Data set overview: This project uses data from the National Health and Nutrition Examination Survey (NHANES) Vision and Eye Health Surveillance dataset, collected by the Centers for Disease Control and Prevention. NHANES is a nationally representative survey of the U.S. civilian, non-institutionalized population. The dataset includes demographic, socioeconomic, and clinical vision measurements collected through interviews and examinations across multiple survey cycles in the United States.
+
+# Loading Data
+
+```{r, results='hide'}
+
+# Packages 
+library(tidyverse)
+
+# Set working directory
+setwd("/Users/lynnliu/Desktop/R Data/check point 2/")
+
+# Load file
+nhanes_eye <- read_csv(
+  "National_Health_and_Nutrition_Examination_Survey_(NHANES)_–_Vision_and_Eye_Health_Surveillance_20260130.csv"
+)
+
+# Preview the data
+glimpse(nhanes_eye)
+
+```
+
+#Data Set Exploration
+*Convert key categorical variables to factors
+```{r, results='hide'}
+
+# 1) Check names
+colnames(nhanes_eye)
+
+# 2) Clean names 
+library(janitor)
+nhanes_eye <- nhanes_eye |>
+  janitor::clean_names()
+
+original_names <- read_csv(
+  "National_Health_and_Nutrition_Examination_Survey_(NHANES)_–_Vision_and_Eye_Health_Surveillance_20260130.csv",
+  show_col_types = FALSE
+) |> colnames()
+
+name_map <- tibble(
+  original_name = original_names,
+  cleaned_name  = colnames(nhanes_eye)
+)
+
+write_csv(name_map, "variable_name_mapping.csv")
+
+
+```
+
+*Clean variable table
+
+*Select 10 variables 
+```{r, results='hide'}
+
+library(dplyr)
+library(tibble)
+library(knitr)
+
+# pick the 10 variables aligned with your question
+vars <- c(
+  "data_value",
+  "low_confidence_limit",
+  "high_confidence_limit",
+  "age",
+  "sex",
+  "race_ethnicity",
+  "risk_factor",
+  "sample_size",
+  "year_start",
+  "year_end"
+)
+
+# build the overview table in a simple, robust way
+variable_overview <- tibble(variable = vars) |>
+  mutate( class = sapply(nhanes_eye[vars], function(x) class(x)[1]),
+    type = case_when(
+      variable %in% c("data_value", "low_confidence_limit", "high_confidence_limit") ~ "Continuous",
+      variable %in% c("sample_size", "year_start", "year_end") ~ "Discrete",
+      TRUE ~ "Categorical"
+    ),
+    description = case_when(
+      variable == "data_value" ~ "Estimated prevalence (%)",
+      variable == "low_confidence_limit" ~ "Lower 95% confidence limit (%)",
+      variable == "high_confidence_limit" ~ "Upper 95% confidence limit (%)",
+      variable == "age" ~ "Age group category",
+      variable == "sex" ~ "Sex category",
+      variable == "race_ethnicity" ~ "Race/ethnicity category",
+      variable == "risk_factor" ~ "Risk factor subgroup",
+      variable == "sample_size" ~ "Sample size for estimate",
+      variable == "year_start" ~ "Start year of NHANES cycle",
+      variable == "year_end" ~ "End year of NHANES cycle",
+      TRUE ~ NA_character_
+    )
+  ) |>
+  select(variable, type, class, description)
+
+kable(
+  variable_overview,
+  caption = "Selected demographic, risk factor, and prevalence variables from the CDC NHANES Vision and Eye Health Surveillance dataset."
+)
+
+```
+
+
+
+
+
+```{r variable-overview-table, echo=FALSE, results='asis'}
+knitr::kable(
+  variable_overview,
+  caption = "Selected demographic, risk factor, and prevalence variables from the CDC NHANES Vision and Eye Health Surveillance dataset."
+)
+```
+
+# Data Visualization
+*Histogram
+
+```{r, results='hide'}
+
+#
+library(ggplot2)
+
+ggplot(nhanes_eye, aes(x = data_value)) +
+  geom_histogram(
+    binwidth = 0.5,
+    fill = "steelblue4",
+    color = "black",
+    alpha = 0.9,
+    na.rm = TRUE
+  ) +
+  geom_vline(
+    aes(xintercept = mean(data_value, na.rm = TRUE), color = "Mean"),
+    linewidth = 1.2
+  ) +
+  geom_vline(
+    aes(xintercept = median(data_value, na.rm = TRUE), color = "Median"),
+    linewidth = 1.2
+  ) +
+  scale_color_manual(
+    values = c("Mean" = "red", "Median" = "darkgreen")
+  ) +
+  scale_x_continuous(
+    labels = function(x) paste0(x, "%")
+  ) +
+  labs(
+    x = "Prevalence estimate (%)",
+    y = "Number of subgroup estimates",
+    color = "",
+    caption = "Prevalence Estimates For Eye Health Conditions."
+  ) +
+  theme_classic(base_size = 12) +
+  theme(
+    legend.position = "top",
+    plot.caption = element_text(
+      hjust = 0.5,
+      size = 12,
+      margin = margin(t = 10)
+    )
+  )
+
+```
+
+*Scatterplot
+
+```{r, results='hide'}
+
+#
+ggplot(nhanes_eye, aes(x = low_confidence_limit, y = high_confidence_limit)) +
+  geom_point(alpha = 0.6, na.rm = TRUE) +
+  scale_x_continuous(labels = function(x) paste0(x, "%")) +
+  scale_y_continuous(labels = function(x) paste0(x, "%")) +
+  labs(
+    x = "Lower 95% confidence limit (%)",
+    y = "Upper 95% confidence limit (%)",
+    caption = "Lower vs Upper 95% Confidence Limits For Prevalence Estimates."
+  ) +
+  theme_classic(base_size = 12) +
+  theme(
+    panel.background = element_rect(fill = "linen", color = NA),
+    plot.background = element_rect(fill = "white", color = NA),
+    plot.caption = element_text(hjust = 0.5, size = 12, margin = margin(t = 10))
+  )
+
+```
+
+# AI Use Disclosure Statement
+
+*As part of this assignment, please indicate whether you used any AI-based tools (e.g., ChatGPT, Claude, Copilot, Gemini, etc.). Indicate:*
+
+* *Did you use AI? Yes / No* YES
+
+* *If yes: Write a short disclosure statement (2–3 sentences) describing:*
+
+* *Which tool(s) you used.*
+
+* *How you used it (e.g., to help decide on an analysis approach, to generate a first draft of code, to improve or debug code you had written yourself, etc.).*
+
+*Example: “This document was generated using Claude to generate original code, which was then reviewed and adjusted” or "This document was generated using ChatGPT to assist with debugging of code generated by the author".*
+
+*Please keep your statement brief and honest. The goal is transparency, not detail: we do not need exact prompts or transcripts, just a clear sense of how AI supported this work.*
+
+This document was generated using ChatGPT to assist with understanding the assignment instructions and drafting initial R code for data subsetting, visualization, and probability calculations.
