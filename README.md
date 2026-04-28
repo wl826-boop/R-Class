@@ -1,5 +1,5 @@
 # Project Title
-Sex Differences in Vision Health: A Simulation Study Using NHANES Data
+Vision and Eye Health Disparities Among U.S. Adults: An Interactive Analysis of NHANES Surveillance Data
 
 ## Brief Description
 This project analyzes vision and eye health outcomes using data from the National Health and Nutrition Examination Survey (NHANES) Vision and Eye Health Surveillance dataset. The analysis explores how prevalence estimates of eye health conditions vary across age groups and race/ethnicity among U.S. adults (18+). An interactive Shiny app allows users to filter by age and race/ethnicity and visualize mean prevalence with 95% confidence intervals across multiple eye health conditions.
