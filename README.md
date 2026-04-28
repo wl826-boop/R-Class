@@ -2,32 +2,30 @@
 Sex Differences in Vision Health: A Simulation Study Using NHANES Data
 
 ## Brief Description
-This project analyzes vision and eye health outcomes using data from the National Health and Nutrition Examination Survey (NHANES) Vision and Eye Health Surveillance dataset. The analysis focuses on differences in prevalence estimates (Data_Value) between males and females. A simulation approach is used to assess how sample size, variability (noise), and effect size influence the estimated differences between groups.
+This project analyzes vision and eye health outcomes using data from the National Health and Nutrition Examination Survey (NHANES) Vision and Eye Health Surveillance dataset. The analysis explores how prevalence estimates of eye health conditions vary across age groups and race/ethnicity among U.S. adults (18+). An interactive Shiny app allows users to filter by age and race/ethnicity and visualize mean prevalence with 95% confidence intervals across multiple eye health conditions.
 
 ## Author(s) and Affiliations
 Wen Liu  
 Cornell University, Master of Public Health (MPH)
-wl826@cornell.edu
 
 ## Contact Information
 Email: wl826@cornell.edu
 GitHub: https://github.com/wl826-boop/R-Class 
 
 ## Research Question / Objectives
-- Is there a difference in mean vision-related prevalence estimates (Data_Value) between males and females?
-- How does sample size affect the stability of estimated differences?
-- How does variability (noise) influence the accuracy of estimates?
-- How does effect size impact the ability to detect differences between groups?
+- Are prevalence estimates of eye health conditions associated with age among U.S. adults?
+- Are prevalence estimates of eye health conditions associated with race/ethnicity among U.S. adults?
+- How do prevalence estimates vary across different eye health conditions (e.g., diabetic retinopathy, glaucoma, macular degeneration)?
 
 ## Data Source and Description
 The dataset is from the CDC’s National Health and Nutrition Examination Survey (NHANES) Vision and Eye Health Surveillance system. NHANES is a nationally representative survey of the U.S. population.
 
 Key variables used in this project include:
-- **Sex** (categorical): Male or Female  
-- **Data_Value** (continuous): Prevalence estimate for vision-related outcomes  
-- **Question** (categorical): Survey question describing the outcome  
-- **Response** (categorical): Participant response category  
-- **Sample Size** (discrete): Number of observations contributing to the estimate  
+- Category (categorical): Type of eye health condition (e.g., Exam-Based Diabetic Retinopathy, Exam-Based Glaucoma, Self-Report Age Related Macular Degeneration)
+- Age (categorical): Age group of respondents (e.g., 18-39 years, 40-64 years, 65-79 years, 80 years and older)
+- RaceEthnicity (categorical): Race/ethnicity of respondents (e.g., White non-Hispanic, Black non-Hispanic, Hispanic any race)
+- Data_Value (continuous): Crude prevalence estimate (%) for each eye health condition
+- Low_Confidence_limit / High_Confidence_Limit (continuous): Lower and upper bounds of the 95% confidence interval around the prevalence estimate 
 
 The dataset provides population-level estimates rather than individual-level observations.
 
