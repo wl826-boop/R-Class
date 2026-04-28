@@ -30,9 +30,9 @@ Key variables used in this project include:
 The dataset provides population-level estimates rather than individual-level observations.
 
 ## Links to Reports / Deliverables
+- Data: https://github.com/wl826-boop/R-Class/tree/main/Data
 - R Markdown Report: https://github.com/wl826-boop/R-Class/tree/main/Scripts
 - Figures/Simulation Outputs: https://github.com/wl826-boop/R-Class/tree/main/output 
-- GitHub Repository: https://github.com/wl826-boop/R-Class
 - ShinnyApps Website: https://wenliu826.shinyapps.io/nhanes-vision/
 
 ## AI Tool Disclosure
