@@ -7,6 +7,7 @@ This project analyzes vision and eye health outcomes using data from the Nationa
 ## Author(s) and Affiliations
 Wen Liu  
 Cornell University, Master of Public Health (MPH)
+wl826@cornell.edu
 
 ## Contact Information
 Email: wl826@cornell.edu
