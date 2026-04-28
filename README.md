@@ -31,9 +31,10 @@ Key variables used in this project include:
 The dataset provides population-level estimates rather than individual-level observations.
 
 ## Links to Reports / Deliverables
-- R Markdown Report: https://github.com/wl826-boop/R-Class/tree/main/R%20Markdown%20Report 
+- R Markdown Report: https://github.com/wl826-boop/R-Class/tree/main/Scripts
 - Figures/Simulation Outputs: https://github.com/wl826-boop/R-Class/tree/main/output 
-- GitHub Repository: https://github.com/wl826-boop/R-Class 
+- GitHub Repository: https://github.com/wl826-boop/R-Class
+- ShinnyApps Website: https://wenliu826.shinyapps.io/nhanes-vision/
 
 ## AI Tool Disclosure
 AI tools (ChatGPT) were used to assist with debugging R code, improving formatting, and refining written explanations. All analytical decisions, interpretation of results, and conclusions were completed independently by the author.
