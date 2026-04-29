@@ -153,7 +153,7 @@ ggplot(eye_data, aes(x = Age, y = Data_Value,
   geom_line(linewidth = 1,
             position = position_dodge(width = 0.3)) +
   scale_color_manual(values = pal_race) +
-  labs(title    = "Eye Health Condition Prevalence by Age Group and Race/Ethnicity",
+  labs(title    = "Prevalence by Age Group and Race/Ethnicity",
        subtitle = "NHANES Vision and Eye Health Surveillance, U.S. Adults",
        x        = "Age Group",
        y        = "Crude Prevalence (%)",
