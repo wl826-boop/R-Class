@@ -17,6 +17,10 @@ GitHub: https://github.com/wl826-boop/R-Class
 - Are prevalence estimates of eye health conditions associated with race/ethnicity among U.S. adults?
 - How do prevalence estimates vary across different eye health conditions (e.g., diabetic retinopathy, glaucoma, macular degeneration)?
 
+## Evolution of Research Question
+
+The research question evolved across earlier checkpoints of this project. In Check Point 2, the analysis focused broadly on exploring the distribution of vision-related prevalence estimates across the NHANES dataset without a specific comparison group. In Check Point 4, the question shifted to examining sex differences in prevalence estimates using a simulation approach. However, after deeper exploration of the data, sex differences were found to be limited in scope and the simulation approach was more methodological than substantive. The final research question — whether prevalence estimates are associated with age and race/ethnicity — was chosen because these two variables showed clearer patterns of variation in the data, are more directly relevant to public health disparities, and align with the interactive Shiny app developed as part of this project.
+
 ## Data Source and Description
 The dataset is from the CDC’s National Health and Nutrition Examination Survey (NHANES) Vision and Eye Health Surveillance system. NHANES is a nationally representative survey of the U.S. population.
 
