@@ -7,7 +7,7 @@ library(tidyverse)
 library(knitr)
 
 df <- read_csv(
-  "National_Health_and_Nutrition_Examination_Survey_(NHANES)_–_Vision_and_Eye_Health_Surveillance_20260130.csv"
+  "nhanes_vision.csv"
 )
 
 df <- as.data.frame(df)
