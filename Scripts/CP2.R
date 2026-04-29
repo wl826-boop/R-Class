@@ -12,7 +12,7 @@ library(ggplot2)
 
 # Load file
 nhanes_eye <- read_csv(
-  "National_Health_and_Nutrition_Examination_Survey_(NHANES)_–_Vision_and_Eye_Health_Surveillance_20260130.csv"
+  "nhanes_vision.csv"
 )
 
 # Clean column names
